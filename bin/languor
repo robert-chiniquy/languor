@@ -1,0 +1,22 @@
+#! /bin/bash
+
+BIN_PATH=`dirname $0`
+
+[ -e $BIN_PATH/../lib/languor.lua ] || ( echo "where am i?" && exit 1 )
+
+$BIN_PATH/redis-server 2>&1 &
+RPID=$!
+
+trap "kill $RPID && echo && exit 0" SIGINT SIGTERM
+
+echo "redis pid: $RPID"
+sleep 1
+
+# load languor
+SHA=`cat $BIN_PATH/../lib/languor.lua | $BIN_PATH/redis-cli -x SCRIPT LOAD`
+
+echo "languor sha: $SHA"
+
+while read line ; do 
+  $BIN_PATH/redis-cli EVALSHA $SHA 0 $line ;
+done

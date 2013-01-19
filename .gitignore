@@ -1,0 +1,10 @@
+dump.rdb
+*.swp
+*.swo
+*.log
+.DS_Store
+*.log
+tags
+.vagrant
+*.tar.gz*
+build/lpeg-0.10.2/

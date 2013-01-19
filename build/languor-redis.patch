@@ -1,0 +1,33 @@
+diff --git a/src/Makefile b/src/Makefile
+index d4b6aad..324cad5 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -154,7 +154,7 @@ endif
+ 
+ # redis-server
+ $(REDIS_SERVER_NAME): $(REDIS_SERVER_OBJ)
+-	$(REDIS_LD) -o $@ $^ ../deps/hiredis/libhiredis.a ../deps/lua/src/liblua.a $(FINAL_LIBS)
++	$(REDIS_LD) -o $@ $^ ../deps/hiredis/libhiredis.a ../deps/lua/src/liblua.a ../../lpeg-0.10.2/lpeg.a $(FINAL_LIBS)
+ 
+ # redis-sentinel
+ $(REDIS_SENTINEL_NAME): $(REDIS_SERVER_NAME)
+diff --git a/src/scripting.c b/src/scripting.c
+index 46301eb..01d21cb 100644
+--- a/src/scripting.c
++++ b/src/scripting.c
+@@ -458,6 +458,7 @@ void luaLoadLib(lua_State *lua, const char *libname, lua_CFunction luafunc) {
+ LUALIB_API int (luaopen_cjson) (lua_State *L);
+ LUALIB_API int (luaopen_struct) (lua_State *L);
+ LUALIB_API int (luaopen_cmsgpack) (lua_State *L);
++LUALIB_API int (luaopen_lpeg) (lua_State *L);
+ 
+ void luaLoadLibraries(lua_State *lua) {
+     luaLoadLib(lua, "", luaopen_base);
+@@ -468,6 +469,7 @@ void luaLoadLibraries(lua_State *lua) {
+     luaLoadLib(lua, "cjson", luaopen_cjson);
+     luaLoadLib(lua, "struct", luaopen_struct);
+     luaLoadLib(lua, "cmsgpack", luaopen_cmsgpack);
++    luaLoadLib(lua, "lpeg", luaopen_lpeg);
+ 
+ #if 0 /* Stuff that we don't load currently, for sandboxing concerns. */
+     luaLoadLib(lua, LUA_LOADLIBNAME, luaopen_package);

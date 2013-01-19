@@ -1,0 +1,8 @@
+24c24
+< CFLAGS = $(CWARNS) $(COPT) -ansi -I$(LUADIR)
+---
+> CFLAGS = -fPIC $(CWARNS) $(COPT) -ansi -I$(LUADIR)
+33a34,36
+> lpeg.a:	lpeg.o
+> 	ar rcs lpeg.a lpeg.o
+> 
