@@ -3,10 +3,11 @@ local String = lpeg.C(lpeg.R('az', 'AZ', '09')^1) * Space
 local SetOp = lpeg.P('%') * Space
 local FactorOp = lpeg.C(lpeg.S("+-")) * Space
 local TermOp = lpeg.C(lpeg.S("&")) * Space
-local Open = "(" * Space
-local Close = ")" * Space
+local Open = "{" * Space
+local Close = "}" * Space
 local Comma = lpeg.P(',') * Space
 
+-- creates temporary sets out of tables of intermediate results
 local temp_sets = {}
 local tmp = function(values) 
   local name = "languor_tmp:" .. (#temp_sets + 1)
@@ -15,19 +16,7 @@ local tmp = function(values)
   return name
 end
 
-local inter = function(one, two) 
-  return redis.pcall('SINTER', one, two)
-end
-
-local add = function(one, two) 
-  return redis.pcall('SUNION', one, two)
-end
-
-local diff = function(one, two) 
-  return redis.pcall('SDIFF', one, two)
-end
-
--- this function owns SMEMBERS
+-- owns SMEMBERS
 local expand_set = function(one) 
   if (type(one) == "string") then return redis.pcall('SMEMBERS', one)
   elseif (type(one) == "table") then 
@@ -41,6 +30,18 @@ local expand_set = function(one)
     end
     return redis.pcall('SMEMBERS', tmp(all))
   end
+end
+
+local inter = function(one, two) 
+  return redis.pcall('SINTER', one, two)
+end
+
+local add = function(one, two) 
+  return redis.pcall('SUNION', one, two)
+end
+
+local diff = function(one, two) 
+  return redis.pcall('SDIFF', one, two)
 end
 
 local binary_op = function(one, op, two)
