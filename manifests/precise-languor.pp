@@ -6,6 +6,8 @@ Exec["apt-update"] -> Package <| |>
 
 package{ "git": ensure => installed }
 package{ "liblua5.1-0-dev": ensure => installed }
+package{ "lua5.2": ensure => installed }
+package{ "luarocks": ensure => installed }
 
 exec { "lua-fix":
   cwd => "/tmp",
