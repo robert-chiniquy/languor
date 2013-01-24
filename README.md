@@ -6,7 +6,7 @@ An LPEG parser for a hierarchical set logic query language embedded inside Redis
 INSTALL
 -------
 ```
-$ git clone https://github.com/robert-chiniquy/languor
+$ git clone git@github.com:robert-chiniquy/languor.git
 $ cd languor/
 $ vagrant up
 $ vagrant ssh
