@@ -20,15 +20,16 @@ USAGE
 -----
 Populate the fixture data with `$ tests/load-fixtures.sh`. To load your own data currently, you can write a fixture lua script using `insert(setname, member, ...)` and add it to l`load-fixtures.sh`. The current fixture data is the `order -> family -> genus -> species -> subspecies` hierarchy from http://www.worldbirdnames.org/ioc-lists/master-list/ — this isn't perfect as species are non-overlapping, I may add "breeding region" or something to the birds to make the data more interesting.
 
-### Any string evaluates to itself.
+### Any string evaluates to itself
+That Wren is a set name does not matter.
 ```
-$ bin/lr Wrens
+$ lr Wrens
 "Wrens"
 ```
 
 ### List every type of wren
 ```
-$ bin/lr %Wrens
+$ lr %Wrens
  1) "Campylorhynchus"
  2) "Cantorchilus"
  3) "Catherpes"
@@ -52,19 +53,19 @@ $ bin/lr %Wrens
 
 ### What order does wren belong to?
 ```
-$ bin/lr ?Wrens
+$ lr ?Wrens
 1) "Passeriformes"
 ```
 
 ### Passeriformes belongs to a top-level list of orders
 ```
-$ bin/lr ?Passeriformes
+$ lr ?Passeriformes
 1) "orders"
 ```
 
 ### List everything under Passeriformes (nested operators)
 ```
-$ bin/lr %?Wrens
+$ lr %?Wrens
   1) "Accentors"
   2) "Antbirds"
   3) "Antpittas"
