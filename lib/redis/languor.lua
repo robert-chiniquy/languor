@@ -66,4 +66,3 @@ local eval = function(languor)
   return ret
 end
 
-return eval(table.concat(ARGV, ' '))

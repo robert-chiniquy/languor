@@ -13,7 +13,7 @@ echo "redis pid: $RPID"
 sleep 1
 
 # load languor
-SHA=`cat $BIN_PATH/../lib/languor.lua | $BIN_PATH/redis-cli -x SCRIPT LOAD`
+SHA=`cat $BIN_PATH/../lib/redis/languor.lua $BIN_PATH/../lib/redis/load.lua | $BIN_PATH/redis-cli -x SCRIPT LOAD`
 
 echo "languor sha: $SHA"
 
