@@ -29,7 +29,7 @@ SYNTAX
 
 ### Unimplemented 
 * `_` Flatten
-# `^` Flatten up
+* `^` Flatten up
 * `?<member>` List sets containing a member
 * `<num>..<num>` Generate a range of consecutive integers
 * `<expr>, <expr>` Set literal
