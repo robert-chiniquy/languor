@@ -63,7 +63,7 @@ $ lr ?Passeriformes
 1) "orders"
 ```
 
-### List everything under Passeriformes (nested operators)
+### List every sibling to Wren under Passeriformes (nested operators)
 ```
 $ lr %?Wrens
   1) "Accentors"
