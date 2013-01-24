@@ -41,8 +41,11 @@ class Taxon:
 class subspecies(Taxon):
   subtaxon = None
 
-class genus(Taxon):
+class species(Taxon):
   subtaxon = subspecies
+
+class genus(Taxon):
+  subtaxon = species
 
 class family(Taxon):
   subtaxon = genus
