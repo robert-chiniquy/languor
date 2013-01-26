@@ -16,7 +16,6 @@ local temp_set_names = {}
 local tmp_prefix = languor_prefix .. "tmp:"
 local tmp = function(values) 
   local name = tmp_prefix .. (#temp_sets + 1)
-  print(name)
   redis.pcall('SADD', name, unpack(values))
   table.insert(temp_sets, name)
   temp_set_names[name] = true
@@ -36,7 +35,6 @@ local diff = function(one, two)
 end
 
 local binary_op = function(one, op, two)
-  print(one, op, two)
   if (type(one) == "table") then one = tmp(one) end
   if (type(two) == "table") then two = tmp(two) end
   if (op == "&") then return inter(one, two)
@@ -95,6 +93,34 @@ local flatten = function(one)
   return diff(tmp(result), tmp(tables))
 end
 
+
+local flatten_up = function(one) 
+  local function collect_tables(tables, one)
+    if (type(one) == 'string') then collect_tables(tables, reverse(one))
+    elseif (type(one) == 'table') then
+      for i=1,#one do
+        local found = false
+        for j=1, #tables do
+          if (tables[j] == one[i]) then
+            found = true
+            break
+          end
+        end
+        if (not found) then
+          if (1 == redis.pcall('EXISTS', one[i])) then
+            table.insert(tables, one[i])
+            collect_tables(tables, reverse(one[i]))
+          end
+        end
+      end
+    end
+    return tables
+  end
+
+  local tables = collect_tables({}, one)
+  return tables
+end
+
 local binary_op = function(one, op, two)
   if (type(one) == "table") then one = tmp(one) end
   if (type(two) == "table") then two = tmp(two) end
@@ -123,15 +149,17 @@ local FactorOp = lpeg.C(lpeg.S("+-")) * Space
 local TermOp = lpeg.C(lpeg.S("&")) * Space
 local SetOp = lpeg.P('%') * Space
 local FlattenOp = lpeg.P('_') * Space
+local FlattenUpOp = lpeg.P('^') * Space
 local ReverseOp = lpeg.P('?') * Space
-local UnaryOp = SetOp + ReverseOp + FlattenOp
+local UnaryOp = SetOp + ReverseOp + FlattenOp + FlattenUpOp
 local String = lpeg.C(lpeg.R('az', 'AZ', '09')^1) * Space
 local SetLiteral = Open * lpeg.Cf(String * lpeg.Cg(Comma * String)^0, tmp) * Close
 local Set = lpeg.Cf(UnaryOp * String, unary_op) + SetLiteral
 
 local G = lpeg.P{ "Exp",
   Exp = lpeg.Cf(lpeg.V"Factor" * lpeg.Cg(FactorOp * lpeg.V"Factor")^0, binary_op);
-  Factor = lpeg.Cf(lpeg.V"Leaves" * lpeg.Cg(TermOp * lpeg.V"Leaves")^0, binary_op);
+  Factor = lpeg.Cf(lpeg.V"Parents" * lpeg.Cg(TermOp * lpeg.V"Parents")^0, binary_op);
+  Parents = lpeg.Cg(FlattenUpOp^1 * lpeg.V"Leaves") / flatten_up + lpeg.V"Leaves";
   Leaves = lpeg.Cg(FlattenOp^1 * lpeg.V"Set") / flatten + lpeg.V"Set";
   Set = lpeg.Cg(SetOp^1 * lpeg.V"RevTerm") / expand_set + lpeg.V"RevTerm";
   RevTerm = lpeg.Cg(ReverseOp^1 * lpeg.V"Term") / reverse + lpeg.V"Term";
