@@ -3,6 +3,8 @@ languor
 
 An LPEG parser for a hierarchical set logic query language embedded inside Redis
 
+![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/contrib/languor_small.jpg)
+
 INSTALL
 -------
 ```
