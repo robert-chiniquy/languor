@@ -27,7 +27,7 @@ $ lr Wrens
 "Wrens"
 ```
 
-### List every type of wren
+### List every type of wren (List members of set with %)
 ```
 $ lr %Wrens
  1) "Campylorhynchus"
@@ -63,7 +63,7 @@ $ lr ?Passeriformes
 1) "orders"
 ```
 
-### List every sibling to Wren under Passeriformes (nested operators)
+### List every sibling to Wren under Passeriformes (nested operators ? in %)
 ```
 $ lr %?Wrens
   1) "Accentors"
@@ -95,7 +95,7 @@ $ lr %?Wrens
 124) "Yellow Flycatchers"
 ```
 
-### List every subspecies in the Wren family (flatten)
+### List every subspecies in the Wren family (flatten with _)
 ```
 $ lr '_Wrens'
   1) "Abbotti"
@@ -127,7 +127,7 @@ $ lr '_Wrens'
 416) "Zuliensis"
 ```
 
-### List every subspecies in the Wren family except for those under Troglodytes and Campylorhynchus
+### List every subspecies in the Wren family except for those under Troglodytes and Campylorhynchus (flatten sets and then subtract)
 ```
 $ lr '_Wrens - _Troglodytes - _Campylorhynchus'
   1) "Abbotti"
@@ -145,16 +145,18 @@ $ lr '_Wrens - _Troglodytes - _Campylorhynchus'
 SYNTAX
 ------
 
-### Implemented
+### Implemented (but not necessarily well yet)
 * `%<set>` List members of a set (Change to `*`?)
 * `<set>&<set>` Set intersection
 * `<set>+<set>` Set union
 * `<set>-<set>` Set difference
-* `{}` Indicate precedence
+* `{<expression>}` Indicate precedence
 * `_` Flatten
 * `?<member>` List sets containing a member
 
-### Unimplemented 
+### Unimplemented
+* `{<set literal>}`
+* `"<string literal"`
 * `^` Flatten up
 * `<num>..<num>` Generate a range of consecutive integers
 * `<expr>, <expr>` Set literal
