@@ -53,7 +53,7 @@ $ lr %Wrens
 19) "Uropsila"
 ```
 
-### What order does wren belong to?
+### What order does wren belong to? (Lists sets with member using ?)
 ```
 $ lr ?Wrens
 1) "Passeriformes"
@@ -129,7 +129,7 @@ $ lr '_Wrens'
 416) "Zuliensis"
 ```
 
-### List every subspecies in the Wren family except for those under Troglodytes and Campylorhynchus (flatten sets and then subtract)
+### List every subspecies in the Wren family except for those under Troglodytes and Campylorhynchus (flatten sets and then subtract with -)
 ```
 $ lr '_Wrens - _Troglodytes - _Campylorhynchus'
   1) "Abbotti"
