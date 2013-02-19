@@ -1,7 +1,7 @@
+![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/doc/languor_logo.png)
+
 languor
 =======
-
-![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/doc/languor_logo.png)
 
 An LPEG parser for a hierarchical set logic query language embedded inside Redis
 
