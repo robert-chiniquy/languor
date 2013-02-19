@@ -1,6 +1,8 @@
 languor
 =======
 
+![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/doc/languor_logo.png)
+
 An LPEG parser for a hierarchical set logic query language embedded inside Redis
 
 INSTALL
@@ -18,8 +20,6 @@ $ bin/lr <range expression> <———— to evaluate a single expression (doesn
 
 USAGE
 -----
-![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/doc/languor_logo.png)
-
 Populate the fixture data with `$ tests/load-fixtures.sh`. To load your own data currently, you can write a fixture lua script using `insert(setname, member, ...)` and add it to `load-fixtures.sh`. 
 
 The current fixture data is the `order -> family -> genus -> species -> subspecies` hierarchy from http://www.worldbirdnames.org/ioc-lists/master-list/ — this isn't perfect as species are non-overlapping, I may add "breeding region" or something to the birds to make the data more interesting.
