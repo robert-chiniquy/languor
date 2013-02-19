@@ -18,7 +18,7 @@ $ bin/lr <range expression> <———— to evaluate a single expression (doesn
 
 USAGE
 -----
-![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/contrib/languor_small.jpg)
+![person relaxing on couch with bird](https://raw.github.com/robert-chiniquy/languor/master/doc/languor_ogo.png)
 
 Populate the fixture data with `$ tests/load-fixtures.sh`. To load your own data currently, you can write a fixture lua script using `insert(setname, member, ...)` and add it to `load-fixtures.sh`. 
 
