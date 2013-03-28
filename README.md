@@ -5,6 +5,8 @@ languor
 
 An LPEG parser for a hierarchical set logic query language embedded inside Redis
 
+:warning: Totally not done yet.
+
 INSTALL
 -------
 ```
